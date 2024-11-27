@@ -71,6 +71,40 @@ def insertion_sort(arr):
         # Place the key in its correct position
         arr[j + 1] = key
 
+def quicksort(arr):
+    """
+    Sorts an array using the Quicksort algorithm.
+    :param arr: List of numbers to sort.
+    :return: None (in-place sorting).
+    """
+    def partition(low, high):
+        # Select the last element as the pivot
+        pivot = arr[high]
+        i = low - 1  # Pointer for the smaller element
+        
+        for j in range(low, high):
+            # If the current element is smaller than or equal to the pivot
+            if arr[j] <= pivot:
+                i += 1  # Increment the index of the smaller element
+                arr[i], arr[j] = arr[j], arr[i]  # Swap
+        
+        # Place the pivot element at the correct position
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        return i + 1
+
+    def quicksort_helper(low, high):
+        if low < high:
+            # Partition the array and get the pivot index
+            pivot_index = partition(low, high)
+            
+            # Recursively apply to the left and right subarrays
+            quicksort_helper(low, pivot_index - 1)
+            quicksort_helper(pivot_index + 1, high)
+    
+    quicksort_helper(0, len(arr) - 1)
+
+
+
 
 # Main execution
 if __name__ == "__main__":
@@ -86,4 +120,12 @@ if __name__ == "__main__":
     array = [12, 11, 13, 5, 6]
     print("Original array:", array)
     insertion_sort(array)
+    print("Sorted array:", array)
+    
+
+    # Test Quicksort
+    print("Testing Quicksort")
+    array = [10, 7, 8, 9, 1, 5]
+    print("Original array:", array)
+    quicksort(array)
     print("Sorted array:", array)
