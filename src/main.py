@@ -49,10 +49,24 @@ def merge_sort:
             k += 1
 
 def insertion_sort:
+    # Move elements of arr[0..i-1] that are greater than key
+    # to one position ahead of their current position
+    while j >= 0 and key < arr[j]:
+        arr[j + 1] = arr[j]
+        j -= 1
+    
+# Place the key in its correct position
+arr[j + 1] = key
+#Test merge sort
+print "Testing Merge Sort"
+array = [38, 27, 43, 3, 9, 82, 10] 
+print("Original array:", array) 
+merge_sort(array) 
+print("Sorted array:", array)
 
-    #Test merge sort
-    if name == "main" 
-    array = [38, 27, 43, 3, 9, 82, 10] 
-    print("Original array:", array) 
-    merge_sort(array) 
-    print("Sorted array:", array)
+#Test insertion sort
+print "Testing Insertion Sort"
+array = [12, 11, 13, 5, 6] 
+print("Original array:", array) 
+insertion_sort(array) 
+print("Sorted array:", array)
