@@ -7,6 +7,11 @@ Author: Marvin Billings
 Date: 11/27/2024
 """
 
+if name == "main" 
+array = [38, 27, 43, 3, 9, 82, 10] 
+print("Original array:", array) 
+merge_sort(array) 
+print("Sorted array:", array)
 
 #Merge Sort 
 #Chapter2: Divide-and-Conquer
@@ -41,3 +46,9 @@ while i < len(left_half) and j < len(right_half):
         arr[k] = right_half[j]
         j += 1
         k += 1
+#Test merge sort
+if name == "main" 
+array = [38, 27, 43, 3, 9, 82, 10] 
+print("Original array:", array) 
+merge_sort(array) 
+print("Sorted array:", array)
