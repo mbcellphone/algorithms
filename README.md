@@ -1,9 +1,9 @@
-# Introduction to Algorithms
+# *Introduction to Algorithms*
 Example: Merge Sort (Chapter 2: Divide-and-Conquer)
 
 Merge Sort is a classic algorithm that divides an array into halves, recursively sorts them, and merges the sorted halves.
 
-## Merge Sort Algorithm (from the book)
+## *Merge Sort Algorithm (from the book)*
 
 	•	Input: Array  A[p..r] 
 	•	Output: Sorted array  A[p..r] 
@@ -56,7 +56,7 @@ def merge_sort(arr):
             k += 1
 
 
-### Example usage
+### *Example usage*
 if __name__ == "__main__":
     array = [38, 27, 43, 3, 9, 82, 10]
     print("Original array:", array)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     print("Sorted array:", array)
 
 
-## Insertion Sort Algorithm from Chapter 2
+## *Insertion Sort Algorithm from Chapter 2*
 
 	•	Iterate through each element of the array.
 	•	Compare the current element with the elements in the sorted portion (to the left).
@@ -94,7 +94,7 @@ def insertion_sort(arr):
         arr[j + 1] = key
 
 
-### Example usage
+### *Example usage*
 if __name__ == "__main__":
     array = [12, 11, 13, 5, 6]
     print("Original array:", array)
@@ -107,7 +107,7 @@ Explanation
 	2.	Inner Loop: Moves larger elements of the sorted portion one step to the right to make space for the current element (key).
 	3.	Insert: Places the key in its correct position.
 
-### Example Execution
+### *Example Execution*
 
 Input:
 
@@ -122,7 +122,7 @@ Sorted array: [5, 6, 11, 12, 13]
 
 Let’s move on to the Quicksort algorithm, another popular and efficient sorting method, also from Chapter 7 of the book.
 
-Quicksort Algorithm (from the book)
+## *Quicksort Algorithm* 
 
 Quicksort is a divide-and-conquer algorithm that:
 	1.	Selects a pivot element.
@@ -164,7 +164,7 @@ def quicksort(arr):
     quicksort_helper(0, len(arr) - 1)
 
 
-# Example usage
+### *Example usage*
 if __name__ == "__main__":
     # Test Quicksort
     print("Testing Quicksort")
@@ -184,7 +184,7 @@ Explanation
 	3.	Base Case:
 	•	The recursion stops when the low index is no longer less than the high index.
 
-Example Output
+### *Example Output*
 
 Input:
 
@@ -196,9 +196,3 @@ Testing Quicksort
 Original array: [10, 7, 8, 9, 1, 5]
 Sorted array: [1, 5, 7, 8, 9, 10]
 
-Let me know if you want to dive into:
-	•	Analyzing the time complexity of Quicksort.
-	•	Optimizing the pivot selection (e.g., using the median-of-three method).
-	•	Moving to the next algorithm, such as Heapsort!
-
-Let me know if you’d like to optimize this further, compare it to other sorting methods, or move on to the next algorithm!
