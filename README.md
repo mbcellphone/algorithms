@@ -118,4 +118,87 @@ Output:
 Original array: [12, 11, 13, 5, 6]
 Sorted array: [5, 6, 11, 12, 13]
 
+
+
+Let’s move on to the Quicksort algorithm, another popular and efficient sorting method, also from Chapter 7 of the book.
+
+Quicksort Algorithm (from the book)
+
+Quicksort is a divide-and-conquer algorithm that:
+	1.	Selects a pivot element.
+	2.	Partitions the array such that elements smaller than the pivot are moved to its left, and elements larger are moved to its right.
+	3.	Recursively applies the same process to the left and right subarrays.
+
+Python Implementation
+
+def quicksort(arr):
+    """
+    Sorts an array using the Quicksort algorithm.
+    :param arr: List of numbers to sort.
+    :return: None (in-place sorting).
+    """
+    def partition(low, high):
+        # Select the last element as the pivot
+        pivot = arr[high]
+        i = low - 1  # Pointer for the smaller element
+        
+        for j in range(low, high):
+            # If the current element is smaller than or equal to the pivot
+            if arr[j] <= pivot:
+                i += 1  # Increment the index of the smaller element
+                arr[i], arr[j] = arr[j], arr[i]  # Swap
+        
+        # Place the pivot element at the correct position
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        return i + 1
+
+    def quicksort_helper(low, high):
+        if low < high:
+            # Partition the array and get the pivot index
+            pivot_index = partition(low, high)
+            
+            # Recursively apply to the left and right subarrays
+            quicksort_helper(low, pivot_index - 1)
+            quicksort_helper(pivot_index + 1, high)
+    
+    quicksort_helper(0, len(arr) - 1)
+
+
+# Example usage
+if __name__ == "__main__":
+    # Test Quicksort
+    print("Testing Quicksort")
+    array = [10, 7, 8, 9, 1, 5]
+    print("Original array:", array)
+    quicksort(array)
+    print("Sorted array:", array)
+
+Explanation
+
+	1.	Partition Function:
+	•	Chooses the last element as the pivot.
+	•	Rearranges the array so that elements smaller than the pivot come before it, and larger elements go after it.
+	•	Returns the index of the pivot after partitioning.
+	2.	Recursive Helper Function:
+	•	Recursively sorts the left and right subarrays until the entire array is sorted.
+	3.	Base Case:
+	•	The recursion stops when the low index is no longer less than the high index.
+
+Example Output
+
+Input:
+
+array = [10, 7, 8, 9, 1, 5]
+
+Output:
+
+Testing Quicksort
+Original array: [10, 7, 8, 9, 1, 5]
+Sorted array: [1, 5, 7, 8, 9, 10]
+
+Let me know if you want to dive into:
+	•	Analyzing the time complexity of Quicksort.
+	•	Optimizing the pivot selection (e.g., using the median-of-three method).
+	•	Moving to the next algorithm, such as Heapsort!
+
 Let me know if you’d like to optimize this further, compare it to other sorting methods, or move on to the next algorithm!
