@@ -63,3 +63,60 @@ if __name__ == "__main__":
     merge_sort(array)
     print("Sorted array:", array)
 
+Let’s implement Insertion Sort from Chapter 2. This is one of the simplest sorting algorithms. It works by building the sorted portion of the array one element at a time.
+
+Insertion Sort Algorithm (from the book)
+
+	•	Iterate through each element of the array.
+	•	Compare the current element with the elements in the sorted portion (to the left).
+	•	Shift elements of the sorted portion to the right until the correct position for the current element is found.
+	•	Insert the current element into its correct position.
+
+Python Implementation
+
+def insertion_sort(arr):
+    """
+    Sorts an array using the Insertion Sort algorithm.
+    :param arr: List of numbers to sort.
+    :return: None (in-place sorting).
+    """
+    # Traverse from the second element to the end
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        
+        # Move elements of arr[0..i-1] that are greater than key
+        # to one position ahead of their current position
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        
+        # Place the key in its correct position
+        arr[j + 1] = key
+
+
+# Example usage
+if __name__ == "__main__":
+    array = [12, 11, 13, 5, 6]
+    print("Original array:", array)
+    insertion_sort(array)
+    print("Sorted array:", array)
+
+Explanation
+
+	1.	Outer Loop: Iterates over the unsorted portion of the array starting from the second element.
+	2.	Inner Loop: Moves larger elements of the sorted portion one step to the right to make space for the current element (key).
+	3.	Insert: Places the key in its correct position.
+
+Example Execution
+
+Input:
+
+array = [12, 11, 13, 5, 6]
+
+Output:
+
+Original array: [12, 11, 13, 5, 6]
+Sorted array: [5, 6, 11, 12, 13]
+
+Let me know if you’d like to optimize this further, compare it to other sorting methods, or move on to the next algorithm!
