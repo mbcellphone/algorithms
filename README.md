@@ -1,9 +1,91 @@
 # *Introduction to Algorithms*
-Example: Merge Sort (Chapter 2: Divide-and-Conquer)
 
+|Summary Table|
+|Algorithm Type|	Algorithms|	CLRS Chapter|
+|Sorting Algorithms	Insertion Sort, Merge Sort, Quicksort	|Chapter 2, 6, 7, 8|
+|Searching Algorithms	Binary Search, BFS, DFS	|Chapter 2, 22|
+|Graph Algorithms	BFS, DFS, Dijkstra, Kruskal, Prim	|Chapter 22, 23, 24, 25|
+|Dynamic Programming	Fibonacci, LCS, Knapsack	|Chapter 15|
+|Greedy Algorithms	Activity Selection, Huffman, Kruskal	|Chapter 16, 23|
+|Divide-and-Conquer Algorithms	Merge Sort, Quicksort, Strassen's	|Chapter 2, 4, 7|
+|Backtracking Algorithms	N-Queens, Sudoku Solver	|Covered within relevant chapters|
+|Mathematical Algorithms	GCD, Sieve of Eratosthenes	|Chapter 31|
+|String Algorithms	Rabin-Karp, KMP	|Chapter 32|
+|Tree Algorithms	BST, AVL Trees, Red-Black Trees	|Chapter 12, 13|
+|Flow Algorithms	Ford-Fulkerson	|Chapter 26|
+|Miscellaneous Algorithms	Union-Find	|Chapter 21|
+
+
+
+
+
+
+
+
+
+
+
+## *Insertion Sort Algorithm from Chapter 2 (Getting Started)*
+
+	•	Iterate through each element of the array.
+	•	Compare the current element with the elements in the sorted portion (to the left).
+	•	Shift elements of the sorted portion to the right until the correct position for the current element is found.
+	•	Insert the current element into its correct position.
+
+Python Implementation
+
+def insertion_sort(arr):
+    """
+    Sorts an array using the Insertion Sort algorithm.
+    :param arr: List of numbers to sort.
+    :return: None (in-place sorting).
+    """
+    # Traverse from the second element to the end
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        
+        # Move elements of arr[0..i-1] that are greater than key
+        # to one position ahead of their current position
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        
+        # Place the key in its correct position
+        arr[j + 1] = key
+
+
+### *Example usage*
+if __name__ == "__main__":
+    array = [12, 11, 13, 5, 6]
+    print("Original array:", array)
+    insertion_sort(array)
+    print("Sorted array:", array)
+
+Explanation
+
+	1.	Outer Loop: Iterates over the unsorted portion of the array starting from the second element.
+	2.	Inner Loop: Moves larger elements of the sorted portion one step to the right to make space for the current element (key).
+	3.	Insert: Places the key in its correct position.
+
+### *Example Execution*
+
+Input:
+
+array = [12, 11, 13, 5, 6]
+
+Output:
+
+Original array: [12, 11, 13, 5, 6]
+Sorted array: [5, 6, 11, 12, 13]
+
+
+
+Let’s move on to the Quicksort algorithm, another popular and efficient sorting method, also from Chapter 7 of the book.
+
+
+## *Merge Sort Algorithm (Chapter 2: Divide-and-Conquer)*
 Merge Sort is a classic algorithm that divides an array into halves, recursively sorts them, and merges the sorted halves.
-
-## *Merge Sort Algorithm (from the book)*
 
 	•	Input: Array  A[p..r] 
 	•	Output: Sorted array  A[p..r] 
@@ -64,65 +146,8 @@ if __name__ == "__main__":
     print("Sorted array:", array)
 
 
-## *Insertion Sort Algorithm from Chapter 2*
 
-	•	Iterate through each element of the array.
-	•	Compare the current element with the elements in the sorted portion (to the left).
-	•	Shift elements of the sorted portion to the right until the correct position for the current element is found.
-	•	Insert the current element into its correct position.
-
-Python Implementation
-
-def insertion_sort(arr):
-    """
-    Sorts an array using the Insertion Sort algorithm.
-    :param arr: List of numbers to sort.
-    :return: None (in-place sorting).
-    """
-    # Traverse from the second element to the end
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        
-        # Move elements of arr[0..i-1] that are greater than key
-        # to one position ahead of their current position
-        while j >= 0 and key < arr[j]:
-            arr[j + 1] = arr[j]
-            j -= 1
-        
-        # Place the key in its correct position
-        arr[j + 1] = key
-
-
-### *Example usage*
-if __name__ == "__main__":
-    array = [12, 11, 13, 5, 6]
-    print("Original array:", array)
-    insertion_sort(array)
-    print("Sorted array:", array)
-
-Explanation
-
-	1.	Outer Loop: Iterates over the unsorted portion of the array starting from the second element.
-	2.	Inner Loop: Moves larger elements of the sorted portion one step to the right to make space for the current element (key).
-	3.	Insert: Places the key in its correct position.
-
-### *Example Execution*
-
-Input:
-
-array = [12, 11, 13, 5, 6]
-
-Output:
-
-Original array: [12, 11, 13, 5, 6]
-Sorted array: [5, 6, 11, 12, 13]
-
-
-
-Let’s move on to the Quicksort algorithm, another popular and efficient sorting method, also from Chapter 7 of the book.
-
-## *Quicksort Algorithm* 
+## *Quicksort Algorithm from Chapter 7 (Quicksort)* 
 
 Quicksort is a divide-and-conquer algorithm that:
 	1.	Selects a pivot element.
