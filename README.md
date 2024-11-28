@@ -1,19 +1,21 @@
-# *Introduction to Algorithms*
+# **Introduction to Algorithms**
 
-|Summary Table|
-|Algorithm Type|	Algorithms|	CLRS Chapter|
-|Sorting Algorithms	Insertion Sort, Merge Sort, Quicksort	|Chapter 2, 6, 7, 8|
-|Searching Algorithms	Binary Search, BFS, DFS	|Chapter 2, 22|
-|Graph Algorithms	BFS, DFS, Dijkstra, Kruskal, Prim	|Chapter 22, 23, 24, 25|
-|Dynamic Programming	Fibonacci, LCS, Knapsack	|Chapter 15|
-|Greedy Algorithms	Activity Selection, Huffman, Kruskal	|Chapter 16, 23|
-|Divide-and-Conquer Algorithms	Merge Sort, Quicksort, Strassen's	|Chapter 2, 4, 7|
-|Backtracking Algorithms	N-Queens, Sudoku Solver	|Covered within relevant chapters|
-|Mathematical Algorithms	GCD, Sieve of Eratosthenes	|Chapter 31|
-|String Algorithms	Rabin-Karp, KMP	|Chapter 32|
-|Tree Algorithms	BST, AVL Trees, Red-Black Trees	|Chapter 12, 13|
-|Flow Algorithms	Ford-Fulkerson	|Chapter 26|
-|Miscellaneous Algorithms	Union-Find	|Chapter 21|
+
+
+| **Algorithm Type** |	**Algorithms** |	**CLRS Chapter** |
+| --- | --- | --- |
+| Sorting Algorithms	| Insertion Sort, Merge Sort, Quicksort	| Chapter 2, 6, 7, 8 |
+| Searching Algorithms	| Binary Search, BFS, DFS	|Chapter 2, 22|
+| Graph Algorithms	| BFS, DFS, Dijkstra, Kruskal, Prim	| Chapter 22, 23, 24, 25 |
+| Dynamic Programming	| Fibonacci, LCS, Knapsack	| Chapter 15 |
+| Greedy Algorithms	| Activity Selection, Huffman, Kruskal	| Chapter 16, 23 |
+| Divide-and-Conquer | Algorithms	Merge Sort, Quicksort, Strassen's	| Chapter 2, 4, 7 |
+| Backtracking Algorithms	| N-Queens, Sudoku Solver	| Covered within relevant chapters |
+| Mathematical Algorithms	| GCD, Sieve of Eratosthenes	| Chapter 31 |
+| String Algorithms	| Rabin-Karp, KMP	| Chapter 32 |
+| Tree Algorithms	| BST, AVL Trees, Red-Black Trees	|Chapter 12, 13|
+| Flow Algorithms	| Ford-Fulkerson	|Chapter 26|
+| Miscellaneous Algorithms	| Union-Find	|Chapter 21|
 
 
 
