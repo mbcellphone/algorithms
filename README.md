@@ -206,9 +206,150 @@ if __name__ == "__main__":
 Original array: [10, 7, 8, 9, 1, 5]
 Sorted array: [1, 5, 7, 8, 9, 10]
 ```
+## **Searching Algorithms**
 
 ---
 
+### **Breadth-First Search (BFS)**
+### **Breadth-First Search (BFS) (Chapter 22: Elementary Graph Algorithms)**
+Breadth-First Search (BFS) is an algorithm for traversing or searching tree or graph data structures. It explores all nodes at the present depth level before moving on to nodes at the next depth level.
+
+**Python Implementation**:
+```python
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+
+    while queue:
+        vertex = queue.popleft()
+        print(vertex, end=" ")
+
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['A', 'D', 'E'],
+        'C': ['A', 'F'],
+        'D': ['B'],
+        'E': ['B', 'F'],
+        'F': ['C', 'E']
+    }
+    bfs(graph, 'A')
+```
+
+**Example Output**:
+```
+A B C D E F
+```
+
+---
+### **Depth-First Search (DFS)**
+### **Depth-First Search (DFS) (Chapter 22: Elementary Graph Algorithms)**
+Depth-First Search (DFS) is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node and explores as far as possible along each branch before backtracking.
+
+**Python Implementation**:
+```python
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    print(start, end=" ")
+
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['A', 'D', 'E'],
+        'C': ['A', 'F'],
+        'D': ['B'],
+        'E': ['B', 'F'],
+        'F': ['C', 'E']
+    }
+    dfs(graph, 'A')
+```
+
+**Example Output**:
+```
+A B D E F C
+```
+## **Graph Algorithms**
+
+---
+### **Dijkstra's Algorithm**
+---
+### **Kruskal's Algorithm**
+---
+### **Prim's Algorithm**
+---
+## **Dynamic Programming Algorithms**
+---
+### **Fibonacci Sequence**
+---
+## **Longest Common Subsequence (LCS)**
+---
+## **Knapsack Problem**
+---
+## **Greedy Algorithms**
+---
+## **Activity Selection Problem**
+---
+## **Huffman Coding**
+---
+## **Divide-and-Conquer Algorithms**
+---
+## **Strassen's Algorithm**
+---
+## **Backtracking Algorithms**
+---
+## **N-Queens Problem**
+---
+## **Sudoku Solver**
+---
+## **Mathematical Algorithms**
+---
+## **GCD (Euclidean Algorithm)**
+---
+## **Sieve of Eratosthenes**
+---
+## **String Algorithms**
+---
+## **Rabin-Karp Algorithm**
+---
+## **Knuth-Morris-Pratt (KMP) Algorithm**
+---
+## **Tree Algorithms**
+---
+## **Binary Search Tree (BST) Operations**
+---
+## **
+AVL Trees**
+---
+## **Red-Black Trees**
+---
+## **Flow Algorithms**
+---
+## **Ford-Fulkerson Algorithm**
+---
+## **Miscellaneous Algorithms**
+---
+## **Union-Find**
+---
 ## **How to Use**
 Clone this repository and run the individual Python files to see how each algorithm works. You can modify the input arrays to test different scenarios.
 
@@ -228,5 +369,6 @@ Feel free to open issues or submit pull requests if you have suggestions or impr
 ## **License**
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+
+
 
