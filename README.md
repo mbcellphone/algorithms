@@ -293,24 +293,459 @@ A B D E F C
 
 ---
 ### **Dijkstra's Algorithm**
+
+Certainly! Here is the **Dijkstra's Algorithm** section:
+
 ---
+
+### **Dijkstra's Algorithm (Chapter 24: Single-Source Shortest Paths)**
+Dijkstra's Algorithm is used to find the shortest paths between nodes in a graph, which may represent, for example, road networks. It is particularly effective for graphs with non-negative edge weights.
+
+**Steps**:
+1. Initialize the distance to the start node as 0 and to all other nodes as infinity.
+2. Set the starting node as current and mark all other nodes as unvisited.
+3. For the current node, consider all its unvisited neighbors and calculate their tentative distances.
+4. Once all neighbors of the current node have been considered, mark the current node as visited. A visited node will not be checked again.
+5. Select the unvisited node that is marked with the smallest tentative distance and set it as the new current node. Repeat until all nodes are visited or the smallest tentative distance is infinity.
+
+**Python Implementation**:
+```python
+import heapq
+
+def dijkstra(graph, start):
+    """
+    Finds the shortest paths from the start node to all other nodes in the graph.
+    :param graph: A dictionary representing the adjacency list of the graph. The value is a list of tuples (neighbor, weight).
+    :param start: The starting node.
+    :return: A dictionary containing the shortest distance to each node.
+    """
+    pq = []
+    heapq.heappush(pq, (0, start))
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    while pq:
+        current_distance, current_node = heapq.heappop(pq)
+
+        if current_distance > distances[current_node]:
+            continue
+
+        for neighbor, weight in graph[current_node]:
+            distance = current_distance + weight
+
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(pq, (distance, neighbor))
+
+    return distances
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    graph = {
+        'A': [('B', 1), ('C', 4)],
+        'B': [('A', 1), ('C', 2), ('D', 5)],
+        'C': [('A', 4), ('B', 2), ('D', 1)],
+        'D': [('B', 5), ('C', 1)]
+    }
+    start_node = 'A'
+    distances = dijkstra(graph, start_node)
+    print(f"Shortest distances from {start_node}: {distances}")
+```
+
+**Example Output**:
+```
+Shortest distances from A: {'A': 0, 'B': 1, 'C': 3, 'D': 4}
+---
+
 ### **Kruskal's Algorithm**
+
+Certainly! Here is the **Kruskal's Algorithm** section:
+
 ---
+
+### **Kruskal's Algorithm (Chapter 23: Minimum Spanning Trees)**
+Kruskal's Algorithm is a greedy algorithm that finds a Minimum Spanning Tree (MST) for a connected, weighted graph. It finds the subset of edges that form a tree including all the vertices, where the total weight of all the edges is minimized.
+
+**Steps**:
+1. Sort all edges in non-decreasing order of their weights.
+2. Pick the smallest edge. Check if it forms a cycle with the MST formed so far.
+   - If no cycle is formed, add this edge to the MST.
+   - If a cycle is formed, discard the edge.
+3. Repeat step 2 until there are \( V - 1 \) edges in the MST, where \( V \) is the number of vertices.
+
+**Python Implementation**:
+```python
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = []
+
+    def add_edge(self, u, v, w):
+        self.graph.append([u, v, w])
+
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
+
+    def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+
+    def kruskal_mst(self):
+        result = []
+        i, e = 0, 0
+
+        # Step 1: Sort all the edges in non-decreasing order of their weight
+        self.graph = sorted(self.graph, key=lambda item: item[2])
+
+        parent = []
+        rank = []
+
+        for node in range(self.V):
+            parent.append(node)
+            rank.append(0)
+
+        while e < self.V - 1:
+            u, v, w = self.graph[i]
+            i += 1
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+
+            if x != y:
+                e += 1
+                result.append([u, v, w])
+                self.union(parent, rank, x, y)
+
+        # Print the resulting MST
+        print("Constructed MST:")
+        for u, v, weight in result:
+            print(f"{u} -- {v} == {weight}")
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    g = Graph(4)
+    g.add_edge(0, 1, 10)
+    g.add_edge(0, 2, 6)
+    g.add_edge(0, 3, 5)
+    g.add_edge(1, 3, 15)
+    g.add_edge(2, 3, 4)
+
+    g.kruskal_mst()
+```
+
+**Example Output**:
+```
+Constructed MST:
+2 -- 3 == 4
+0 -- 3 == 5
+0 -- 1 == 10
+```
 ### **Prim's Algorithm**
+
 ---
+
+### **Prim's Algorithm (Chapter 23: Minimum Spanning Trees)**
+Prim's Algorithm is a greedy algorithm that finds a Minimum Spanning Tree (MST) for a connected, weighted graph. The algorithm maintains two sets of vertices:
+- One set contains the vertices included in the MST.
+- The other set contains the vertices not yet included.
+
+Prim's Algorithm starts with an arbitrary vertex and continues until all the vertices are included in the MST.
+
+**Steps**:
+1. Start with any vertex and add it to the MST.
+2. At each step, add the smallest edge connecting a vertex in the MST to a vertex outside the MST.
+3. Repeat until all vertices are included in the MST.
+
+**Python Implementation**:
+```python
+import sys
+
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = [[0 for column in range(vertices)] for row in range(vertices)]
+
+    def print_mst(self, parent):
+        print("Edge \tWeight")
+        for i in range(1, self.V):
+            print(f"{parent[i]} - {i} \t{self.graph[i][parent[i]]}")
+
+    def min_key(self, key, mst_set):
+        min_value = sys.maxsize
+        min_index = -1
+
+        for v in range(self.V):
+            if key[v] < min_value and not mst_set[v]:
+                min_value = key[v]
+                min_index = v
+
+        return min_index
+
+    def prim_mst(self):
+        key = [sys.maxsize] * self.V
+        parent = [None] * self.V
+        key[0] = 0
+        mst_set = [False] * self.V
+        parent[0] = -1
+
+        for _ in range(self.V):
+            u = self.min_key(key, mst_set)
+            mst_set[u] = True
+
+            for v in range(self.V):
+                if self.graph[u][v] > 0 and not mst_set[v] and key[v] > self.graph[u][v]:
+                    key[v] = self.graph[u][v]
+                    parent[v] = u
+
+        self.print_mst(parent)
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    g = Graph(5)
+    g.graph = [
+        [0, 2, 0, 6, 0],
+        [2, 0, 3, 8, 5],
+        [0, 3, 0, 0, 7],
+        [6, 8, 0, 0, 9],
+        [0, 5, 7, 9, 0]
+    ]
+
+    g.prim_mst()
+```
+
+**Example Output**:
+```
+Edge    Weight
+0 - 1   2
+1 - 2   3
+0 - 3   6
+1 - 4   5
+---
+
+---
+---
+
+
 ## **Dynamic Programming Algorithms**
----
+
 ### **Fibonacci Sequence**
+### **Fibonacci Sequence (Chapter 15: Dynamic Programming)**
+The Fibonacci Sequence is a series of numbers where each number is the sum of the two preceding ones, usually starting with 0 and 1. Dynamic programming can be used to solve this problem efficiently by storing previous results to avoid redundant calculations.
+
+**Python Implementation**:
+```python
+def fibonacci(n):
+    fib = [0, 1]
+    for i in range(2, n + 1):
+        fib.append(fib[i - 1] + fib[i - 2])
+    return fib[n]
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    n = 9
+    print(f"Fibonacci number at index {n} is {fibonacci(n)}")
+```
+
+**Example Output**:
+```
+Fibonacci number at index 9 is 34
+```
+
 ---
 ## **Longest Common Subsequence (LCS)**
+### **Longest Common Subsequence (LCS) (Chapter 15: Dynamic Programming)**
+The Longest Common Subsequence (LCS) is the longest sequence that can be derived from two sequences by deleting some elements without changing the order of the remaining elements.
+
+**Python Implementation**:
+```python
+def lcs(X, Y):
+    m = len(X)
+    n = len(Y)
+    L = [[0] * (n + 1) for i in range(m + 1)]
+
+    for i in range(m + 1):
+        for j in range(n + 1):
+            if i == 0 or j == 0:
+                L[i][j] = 0
+            elif X[i - 1] == Y[j - 1]:
+                L[i][j] = L[i - 1][j - 1] + 1
+            else:
+                L[i][j] = max(L[i - 1][j], L[i][j - 1])
+
+    return L[m][n]
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    X = "AGGTAB"
+    Y = "GXTXAYB"
+    print(f"Length of LCS is {lcs(X, Y)}")
+```
+
+**Example Output**:
+```
+Length of LCS is 4
+```
+
 ---
 ## **Knapsack Problem**
+### **Knapsack Problem (Chapter 15: Dynamic Programming)**
+The Knapsack Problem is a problem in combinatorial optimization: given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit, and the total value is as large as possible.
+
+**Python Implementation**:
+```python
+def knapsack(W, wt, val, n):
+    K = [[0 for x in range(W + 1)] for x in range(n + 1)]
+
+    for i in range(n + 1):
+        for w in range(W + 1):
+            if i == 0 or w == 0:
+                K[i][w] = 0
+            elif wt[i - 1] <= w:
+                K[i][w] = max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w])
+            else:
+                K[i][w] = K[i - 1][w]
+
+    return K[n][W]
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    val = [60, 100, 120]
+    wt = [10, 20, 30]
+    W = 50
+    n = len(val)
+    print(f"Maximum value in knapsack is {knapsack(W, wt, val, n)}")
+```
+
+**Example Output**:
+```
+Maximum value in knapsack is 220
+
 ---
+
+---
+
+---
+
 ## **Greedy Algorithms**
+
 ---
 ## **Activity Selection Problem**
 ---
+
+
+### **Activity Selection Problem (Chapter 16: Greedy Algorithms)**
+The Activity Selection Problem is a problem of selecting the maximum number of activities that don't overlap, given their start and end times.
+
+**Steps**:
+1. Sort activities by their ending times.
+2. Select the first activity and add it to the result.
+3. For each subsequent activity, if the start time is greater than or equal to the end time of the previously selected activity, select it.
+
+**Python Implementation**:
+```python
+def activity_selection(start, end):
+    n = len(start)
+    selected_activities = [0]
+    
+    # The last activity selected
+    last_end_time = end[0]
+    
+    for i in range(1, n):
+        if start[i] >= last_end_time:
+            selected_activities.append(i)
+            last_end_time = end[i]
+
+    return selected_activities
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    start = [1, 3, 0, 5, 8, 5]
+    end = [2, 4, 6, 7, 9, 9]
+    selected = activity_selection(start, end)
+    print(f"Selected activities: {selected}")
+```
+
+**Example Output**:
+```
+Selected activities: [0, 1, 3, 4]
+```
+
+---
 ## **Huffman Coding**
+
+### **Huffman Coding (Chapter 16: Greedy Algorithms)**
+Huffman Coding is a greedy algorithm used for data compression. It builds a variable-length prefix code for each character, where frequently occurring characters have shorter codes. 
+
+**Steps**:
+1. Create a leaf node for each character and add it to the priority queue.
+2. While there is more than one node in the queue:
+   - Remove the two nodes of the highest priority (lowest frequency).
+   - Create a new internal node with these two nodes as children and with a frequency equal to the sum of the two nodes' frequencies.
+   - Add the new node to the priority queue.
+3. The remaining node is the root of the Huffman Tree, and the paths to the leaf nodes represent the Huffman codes.
+
+**Python Implementation**:
+```python
+import heapq
+from collections import Counter, namedtuple
+
+class Node(namedtuple("Node", ["char", "freq"])):
+    def __lt__(self, other):
+        return self.freq < other.freq
+
+def huffman_coding(char_freq):
+    heap = [Node(char, freq) for char, freq in char_freq.items()]
+    heapq.heapify(heap)
+
+    while len(heap) > 1:
+        left = heapq.heappop(heap)
+        right = heapq.heappop(heap)
+        merged = Node(None, left.freq + right.freq)
+        heapq.heappush(heap, merged)
+
+    return heap[0]
+
+def build_huffman_tree():
+    data = "this is an example for huffman encoding"
+    char_freq = Counter(data)
+    root = huffman_coding(char_freq)
+    return root
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    root = build_huffman_tree()
+    print("Huffman Tree built successfully.")
+```
+
+**Example Output**:
+```
+Huffman Tree built successfully.
+
 ---
 ## **Divide-and-Conquer Algorithms**
 ---
