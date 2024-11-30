@@ -747,6 +747,9 @@ if __name__ == "__main__":
 Huffman Tree built successfully.
 
 ---
+---
+
+
 ## **Divide-and-Conquer Algorithms**
 ---
 ## **Strassen's Algorithm**
@@ -773,8 +776,7 @@ Huffman Tree built successfully.
 ---
 ## **Binary Search Tree (BST) Operations**
 ---
-## **
-AVL Trees**
+## **AVL Trees**
 ---
 ## **Red-Black Trees**
 ---
@@ -785,6 +787,75 @@ AVL Trees**
 ## **Miscellaneous Algorithms**
 ---
 ## **Union-Find**
+Certainly! Here is the **Union-Find** section:
+
+---
+
+### **Union-Find (Chapter 21: Data Structures for Disjoint Sets)**
+Union-Find, also known as the Disjoint Set Union (DSU), is a data structure that keeps track of a set of elements partitioned into disjoint (non-overlapping) subsets. It provides efficient operations for merging sets (union) and finding the representative of a set (find).
+
+**Steps**:
+1. **Find**: Determines which subset a particular element is in. It is also used to check if two elements are in the same subset.
+2. **Union**: Merges two subsets into a single subset.
+
+**Path Compression** is used in the **Find** operation to make the tree flat, thereby improving efficiency. **Union by Rank** is used to keep the tree shallow during the **Union** operation.
+
+**Python Implementation**:
+```python
+class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [0] * n
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])  # Path compression
+        return self.parent[x]
+
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+
+        if root_x != root_y:
+            # Union by rank
+            if self.rank[root_x] > self.rank[root_y]:
+                self.parent[root_y] = root_x
+            elif self.rank[root_x] < self.rank[root_y]:
+                self.parent[root_x] = root_y
+            else:
+                self.parent[root_y] = root_x
+                self.rank[root_x] += 1
+```
+
+**Example Usage**:
+```python
+if __name__ == "__main__":
+    uf = UnionFind(5)
+
+    # Perform unions
+    uf.union(0, 1)
+    uf.union(1, 2)
+    uf.union(3, 4)
+
+    # Find representatives
+    print(uf.find(0))  # Should print the representative of the set containing 0, 1, 2
+    print(uf.find(3))  # Should print the representative of the set containing 3, 4
+    print(uf.find(4))  # Should also print the representative of the set containing 3, 4
+```
+
+**Example Output**:
+```
+0
+3
+3
+```
+
+**Explanation**:
+- After performing `union(0, 1)` and `union(1, 2)`, elements 0, 1, and 2 are all part of the same set.
+- The `union(3, 4)` operation combines elements 3 and 4 into a different set.
+- The `find()` operation helps to determine the root representative of each element, ensuring that all connected elements have the same representative.
+
+
 ---
 ## **How to Use**
 Clone this repository and run the individual Python files to see how each algorithm works. You can modify the input arrays to test different scenarios.
