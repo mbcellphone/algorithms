@@ -745,9 +745,11 @@ if __name__ == "__main__":
 **Example Output**:
 ```
 Huffman Tree built successfully.
+```
 
 ---
----
+
+
 
 
 ## **Divide-and-Conquer Algorithms**
