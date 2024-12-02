@@ -1094,6 +1094,65 @@ The Euclidean Algorithm is very efficient with a time complexity of ￼, making 
 Let me know if you need any more details or examples regarding the GCD algorithm or any other topics!
 ---
 ## **Sieve of Eratosthenes**
+Certainly! Here is the Sieve of Eratosthenes section:
+
+Sieve of Eratosthenes (Chapter 31: Number-Theoretic Algorithms)
+
+The Sieve of Eratosthenes is an efficient algorithm for finding all prime numbers up to a specified integer ￼. It systematically marks the multiples of each prime number starting from 2, effectively leaving only the prime numbers unmarked.
+
+Steps:
+	1.	Create an array is_prime of size ￼ and initialize all entries as True. Set the values for 0 and 1 as False since 0 and 1 are not prime numbers.
+	2.	Starting with the first prime number (2), mark all of its multiples as False.
+	3.	Move to the next unmarked number and repeat the process until you’ve processed numbers up to ￼.
+	4.	The remaining True entries in the array represent prime numbers.
+
+Python Implementation:
+
+def sieve_of_eratosthenes(n):
+    # Initialize an array of booleans representing if numbers are prime
+    is_prime = [True] * (n + 1)
+    is_prime[0], is_prime[1] = False, False  # 0 and 1 are not prime
+
+    p = 2
+    while p * p <= n:
+        if is_prime[p]:
+            # Mark all multiples of p as False
+            for i in range(p * p, n + 1, p):
+                is_prime[i] = False
+        p += 1
+
+    # Collect all prime numbers from the is_prime array
+    primes = [num for num, prime in enumerate(is_prime) if prime]
+    return primes
+
+Example Usage:
+
+if __name__ == "__main__":
+    n = 30
+    primes = sieve_of_eratosthenes(n)
+    print(f"Prime numbers up to {n}: {primes}")
+
+Example Output:
+
+Prime numbers up to 30: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
+Explanation:
+	•	The algorithm starts by marking all multiples of 2 (except 2 itself) as non-prime.
+	•	It proceeds to the next number, 3, and marks all multiples of 3 as non-prime.
+	•	This process continues for the next unmarked number (which is 5, then 7, and so on) until ￼.
+
+Complexity:
+	•	Time Complexity: ￼
+	•	Space Complexity: ￼
+
+The Sieve of Eratosthenes is an efficient way to find all prime numbers less than or equal to a given limit, making it particularly useful for problems involving prime numbers.
+
+Optimizations:
+	•	You can reduce memory usage by only storing odd numbers since even numbers (except 2) are not prime.
+	•	Instead of starting to mark multiples from ￼, another optimization is to mark multiples starting from ￼ if you have previously marked smaller multiples.
+
+
+
 ---
 ## **String Algorithms**
 ---
