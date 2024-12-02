@@ -755,16 +755,345 @@ Huffman Tree built successfully.
 ## **Divide-and-Conquer Algorithms**
 ---
 ## **Strassen's Algorithm**
+Certainly! Here is the Strassen’s Algorithm section:
+
+Strassen’s Algorithm (Chapter 4: Divide-and-Conquer)
+
+Strassen’s Algorithm is an efficient algorithm for matrix multiplication that uses a divide-and-conquer approach. It improves upon the traditional ￼ complexity of matrix multiplication by reducing the number of recursive multiplications needed.
+
+Steps:
+	1.	Divide two ￼ matrices into four submatrices of size ￼.
+	2.	Use Strassen’s formulas to compute intermediate products using only 7 multiplications (as opposed to 8 in the naive divide-and-conquer).
+	3.	Combine the intermediate results to get the final product matrix.
+
+Mathematical Breakdown:
+For two matrices ￼ and ￼:
+
+￼
+
+Split ￼ and ￼ into four submatrices:
+
+￼
+
+Strassen’s algorithm uses the following intermediate products:
+	1.	￼
+	2.	￼
+	3.	￼
+	4.	￼
+	5.	￼
+	6.	￼
+	7.	￼
+
+The resulting submatrices of ￼ are:
+
+￼
+￼
+￼
+￼
+
+Python Implementation:
+
+import numpy as np
+
+def add_matrices(A, B):
+    return [[A[i][j] + B[i][j] for j in range(len(A))] for i in range(len(A))]
+
+def subtract_matrices(A, B):
+    return [[A[i][j] - B[i][j] for j in range(len(A))] for i in range(len(A))]
+
+def strassen(A, B):
+    n = len(A)
+    if n == 1:
+        return [[A[0][0] * B[0][0]]]
+    
+    mid = n // 2
+
+    A11 = [row[:mid] for row in A[:mid]]
+    A12 = [row[mid:] for row in A[:mid]]
+    A21 = [row[:mid] for row in A[mid:]]
+    A22 = [row[mid:] for row in A[mid:]]
+
+    B11 = [row[:mid] for row in B[:mid]]
+    B12 = [row[mid:] for row in B[:mid]]
+    B21 = [row[:mid] for row in B[mid:]]
+    B22 = [row[mid:] for row in B[mid:]]
+
+    M1 = strassen(add_matrices(A11, A22), add_matrices(B11, B22))
+    M2 = strassen(add_matrices(A21, A22), B11)
+    M3 = strassen(A11, subtract_matrices(B12, B22))
+    M4 = strassen(A22, subtract_matrices(B21, B11))
+    M5 = strassen(add_matrices(A11, A12), B22)
+    M6 = strassen(subtract_matrices(A21, A11), add_matrices(B11, B12))
+    M7 = strassen(subtract_matrices(A12, A22), add_matrices(B21, B22))
+
+    C11 = add_matrices(subtract_matrices(add_matrices(M1, M4), M5), M7)
+    C12 = add_matrices(M3, M5)
+    C21 = add_matrices(M2, M4)
+    C22 = add_matrices(subtract_matrices(add_matrices(M1, M3), M2), M6)
+
+    C = [[0] * n for _ in range(n)]
+    for i in range(mid):
+        for j in range(mid):
+            C[i][j] = C11[i][j]
+            C[i][j + mid] = C12[i][j]
+            C[i + mid][j] = C21[i][j]
+            C[i + mid][j + mid] = C22[i][j]
+
+    return C
+
+# Example usage
+if __name__ == "__main__":
+    A = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    B = [[16, 15, 14, 13], [12, 11, 10, 9], [8, 7, 6, 5], [4, 3, 2, 1]]
+
+    result = strassen(A, B)
+    print("Result of Strassen's Matrix Multiplication:")
+    for row in result:
+        print(row)
+
+Example Output:
+
+Result of Strassen's Matrix Multiplication:
+[80, 70, 60, 50]
+[240, 214, 188, 162]
+[400, 358, 316, 274]
+[560, 502, 444, 386]
+
+Strassen’s algorithm is more efficient than the naive matrix multiplication algorithm for large matrices, as it reduces the time complexity from ￼ to approximately ￼. However, it comes at the cost of additional complexity in terms of implementation and increased space usage for small matrices, which can make the naive algorithm preferable in some scenarios.
+
+Let me know if you need further explanations or anything else!
+
 ---
 ## **Backtracking Algorithms**
+
 ---
 ## **N-Queens Problem**
+Certainly! Here is the Backtracking Algorithms section:
+
+Backtracking Algorithms
+
+Backtracking is a general algorithmic technique for solving problems incrementally, one piece at a time, and removing solutions that fail to satisfy the problem’s constraints at any point. It is particularly useful for constraint satisfaction problems, such as puzzles or combinatorial optimization problems.
+
+N-Queens Problem (Chapter 8: Backtracking Techniques)
+
+The N-Queens problem is the classic example of a backtracking algorithm, where you need to place N queens on an N x N chessboard such that no two queens attack each other.
+
+Steps:
+	1.	Start placing queens one by one in different columns.
+	2.	If placing a queen does not lead to a solution, backtrack and place the queen in the next possible position.
+	3.	Continue until all queens are placed or all possibilities are exhausted.
+
+Python Implementation:
+
+def print_solution(board):
+    for row in board:
+        print(" ".join(str(x) for x in row))
+    print()
+
+def is_safe(board, row, col, n):
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+
+    return True
+
+def solve_n_queens_util(board, col, n):
+    if col >= n:
+        print_solution(board)
+        return True
+
+    res = False
+    for i in range(n):
+        if is_safe(board, i, col, n):
+            board[i][col] = 1
+            res = solve_n_queens_util(board, col + 1, n) or res
+            board[i][col] = 0
+
+    return res
+
+def solve_n_queens(n):
+    board = [[0 for _ in range(n)] for _ in range(n)]
+    if not solve_n_queens_util(board, 0, n):
+        print("No solution exists")
+
+Example Usage:
+
+if __name__ == "__main__":
+    n = 4
+    solve_n_queens(n)
+
+Example Output:
+
+0 0 1 0
+1 0 0 0
+0 0 0 1
+0 1 0 0
+
+0 1 0 0
+0 0 0 1
+1 0 0 0
+0 0 1 0
+
 ---
 ## **Sudoku Solver**
+Sudoku Solver (Chapter 8: Backtracking Techniques)
+
+The Sudoku Solver is another example of a backtracking algorithm. The goal is to fill in the empty cells in a 9x9 Sudoku grid such that each number from 1 to 9 appears exactly once in each row, column, and 3x3 subgrid.
+
+Steps:
+	1.	Find an empty cell in the grid.
+	2.	Attempt to place a number from 1 to 9 in the cell.
+	3.	Check if placing the number is valid.
+	4.	If it is valid, recursively attempt to solve the rest of the board.
+	5.	If placing a number leads to an invalid configuration, backtrack and try the next number.
+
+Python Implementation:
+
+def is_valid(board, row, col, num):
+    for i in range(9):
+        if board[row][i] == num or board[i][col] == num:
+            return False
+
+    start_row, start_col = 3 * (row // 3), 3 * (col // 3)
+    for i in range(3):
+        for j in range(3):
+            if board[start_row + i][start_col + j] == num:
+                return False
+
+    return True
+
+def solve_sudoku(board):
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == 0:
+                for num in range(1, 10):
+                    if is_valid(board, row, col, num):
+                        board[row][col] = num
+                        if solve_sudoku(board):
+                            return True
+                        board[row][col] = 0
+                return False
+    return True
+
+def print_board(board):
+    for row in board:
+        print(" ".join(str(num) for num in row))
+
+Example Usage:
+
+if __name__ == "__main__":
+    board = [
+        [5, 3, 0, 0, 7, 0, 0, 0, 0],
+        [6, 0, 0, 1, 9, 5, 0, 0, 0],
+        [0, 9, 8, 0, 0, 0, 0, 6, 0],
+        [8, 0, 0, 0, 6, 0, 0, 0, 3],
+        [4, 0, 0, 8, 0, 3, 0, 0, 1],
+        [7, 0, 0, 0, 2, 0, 0, 0, 6],
+        [0, 6, 0, 0, 0, 0, 2, 8, 0],
+        [0, 0, 0, 4, 1, 9, 0, 0, 5],
+        [0, 0, 0, 0, 8, 0, 0, 7, 9]
+    ]
+    if solve_sudoku(board):
+        print_board(board)
+    else:
+        print("No solution exists")
+
+Example Output:
+
+5 3 4 6 7 8 9 1 2
+6 7 2 1 9 5 3 4 8
+1 9 8 3 4 2 5 6 7
+8 5 9 7 6 1 4 2 3
+4 2 6 8 5 3 7 9 1
+7 1 3 9 2 4 8 5 6
+9 6 1 5 3 7 2 8 4
+2 8 7 4 1 9 6 3 5
+3 4 5 2 8 6 1 7 9
+
+Let me know if you need any more details or additional examples on Backtracking Algorithms!
+
+
 ---
 ## **Mathematical Algorithms**
 ---
 ## **GCD (Euclidean Algorithm)**
+Certainly! Here is the GCD (Greatest Common Divisor) Algorithm section:
+
+GCD (Euclidean Algorithm) (Chapter 31: Number-Theoretic Algorithms)
+
+The Greatest Common Divisor (GCD) of two integers is the largest positive integer that divides both numbers without leaving a remainder. The Euclidean Algorithm is an efficient way to calculate the GCD, based on the principle that the GCD of two numbers does not change if the larger number is replaced by its remainder when divided by the smaller number.
+
+Steps:
+	1.	Start with two numbers, ￼ and ￼.
+	2.	Replace ￼ with ￼ and ￼ with the remainder of ￼ divided by ￼.
+	3.	Repeat until ￼ becomes zero. The value of ￼ at this point is the GCD.
+
+Python Implementation:
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+Example Usage:
+
+if __name__ == "__main__":
+    a = 56
+    b = 98
+    result = gcd(a, b)
+    print(f"The GCD of {a} and {b} is {result}")
+
+Example Output:
+
+The GCD of 56 and 98 is 14
+
+Explanation:
+	•	Start with ￼, ￼.
+	•	Compute ￼ (i.e., ￼), which gives 56 (since ￼).
+	•	Swap values: ￼, ￼.
+	•	Compute ￼ (i.e., ￼), which gives 42.
+	•	Swap values: ￼, ￼.
+	•	Continue this process until ￼, at which point ￼ is the GCD.
+
+Recursive Implementation:
+
+The Euclidean algorithm can also be implemented recursively.
+
+Python Implementation:
+
+def gcd_recursive(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcd_recursive(b, a % b)
+
+Example Usage:
+
+if __name__ == "__main__":
+    a = 56
+    b = 98
+    result = gcd_recursive(a, b)
+    print(f"The GCD of {a} and {b} using the recursive method is {result}")
+
+Example Output:
+
+The GCD of 56 and 98 using the recursive method is 14
+
+Use Cases:
+	•	Simplifying Fractions: GCD is used to simplify fractions by dividing both the numerator and the denominator by their GCD.
+	•	Cryptography: GCD calculations are often used in cryptographic algorithms such as RSA.
+
+The Euclidean Algorithm is very efficient with a time complexity of ￼, making it suitable for large numbers.
+
+Let me know if you need any more details or examples regarding the GCD algorithm or any other topics!
 ---
 ## **Sieve of Eratosthenes**
 ---
