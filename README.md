@@ -755,8 +755,6 @@ Huffman Tree built successfully.
 ## **Divide-and-Conquer Algorithms**
 ---
 ## **Strassen's Algorithm**
-Certainly! Here is the Strassen’s Algorithm section:
-
 Strassen’s Algorithm (Chapter 4: Divide-and-Conquer)
 
 Strassen’s Algorithm is an efficient algorithm for matrix multiplication that uses a divide-and-conquer approach. It improves upon the traditional ￼ complexity of matrix multiplication by reducing the number of recursive multiplications needed.
@@ -861,7 +859,7 @@ Result of Strassen's Matrix Multiplication:
 
 Strassen’s algorithm is more efficient than the naive matrix multiplication algorithm for large matrices, as it reduces the time complexity from ￼ to approximately ￼. However, it comes at the cost of additional complexity in terms of implementation and increased space usage for small matrices, which can make the naive algorithm preferable in some scenarios.
 
-Let me know if you need further explanations or anything else!
+
 
 ---
 ## **Backtracking Algorithms**
