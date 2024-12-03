@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Module Name: main.py
-Description: Examples for Introduction to Algorithms
+Module Name: sorting_algorithms.py
+Description: Examples for Sorting Algorithms (Merge Sort, Insertion Sort, Quicksort)
 Author: Marvin Billings
-Date: 11/27/2024
+Date: 12/02/2024
 """
 
 # Merge Sort Function
@@ -50,7 +50,6 @@ def merge_sort(arr):
             j += 1
             k += 1
 
-
 # Insertion Sort Function
 def insertion_sort(arr):
     """
@@ -71,6 +70,7 @@ def insertion_sort(arr):
         # Place the key in its correct position
         arr[j + 1] = key
 
+# Quicksort Function
 def quicksort(arr):
     """
     Sorts an array using the Quicksort algorithm.
@@ -103,9 +103,6 @@ def quicksort(arr):
     
     quicksort_helper(0, len(arr) - 1)
 
-
-
-
 # Main execution
 if __name__ == "__main__":
     # Test Merge Sort
@@ -122,9 +119,8 @@ if __name__ == "__main__":
     insertion_sort(array)
     print("Sorted array:", array)
     
-
     # Test Quicksort
-    print("Testing Quicksort")
+    print("\nTesting Quicksort")
     array = [10, 7, 8, 9, 1, 5]
     print("Original array:", array)
     quicksort(array)
